@@ -1,6 +1,6 @@
 # Progressbars::Rails
 
-Rails Asset and helpers for progress bars.
+Rails assets and view helpers for progress bars.
 
 ## Installation
 
@@ -18,7 +18,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In your views:
+  <%= progress_bar(0.2) %>
 
 ## Contributing
 
