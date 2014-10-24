@@ -1,0 +1,110 @@
+
+@mixin border-right-radius($radius) {
+     -webkit-border-top-right-radius: $radius;
+  -webkit-border-bottom-right-radius: $radius;
+         -moz-border-radius-topright: $radius;
+      -moz-border-radius-bottomright: $radius;
+             border-top-right-radius: $radius;
+          border-bottom-right-radius: $radius;
+}
+
+@mixin border-left-radius($radius) {
+      -webkit-border-top-left-radius: $radius;
+   -webkit-border-bottom-left-radius: $radius;
+          -moz-border-radius-topleft: $radius;
+       -moz-border-radius-bottomleft: $radius;
+              border-top-left-radius: $radius;
+           border-bottom-left-radius: $radius;
+}
+
+@mixin border-radius($radius) {
+  @include border-left-radius ($radius);
+  @include border-right-radius($radius);
+}
+
+@mixin shadow($horizontal, $vertical, $blur, $scolor) {
+  -webkit-box-shadow: inset $horizontal $vertical $blur $scolor;
+  -moz-box-shadow:    inset $horizontal $vertical $blur $scolor;
+  box-shadow:         inset $horizontal $vertical $blur $scolor;
+}
+
+@mixin meter($height, $bar_color, $background_color) { 
+  height: $height;  /* Can be anything */
+  position: relative;
+  background: #555;
+  padding: $height/2;
+  @include border-radius($height/2);
+  @include shadow(0, -2px, 2px, rgba(255,255,255, 0.4));
+  @include shadow(0, 2px,  2px, rgba(  0,  0, 0, 0.4));
+    
+  span {
+    display: block;
+    height: 100%;
+    @include border-radius($height/4);
+
+    background-color: $bar_color;
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, $bar_color),
+      color-stop(1, darken($bar_color, 20%))
+     );
+    background-image: -moz-linear-gradient(
+      center bottom,
+      $bar_color 37%,
+      darken($bar_color, 20%) 69%
+     );
+
+    position: relative;
+    overflow: hidden;
+  }
+  span:after, .animate > span > span {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image: 
+       -webkit-gradient(linear, 0 0, 100% 100%, 
+          color-stop(.25, rgba(255, 255, 255, .2)), 
+          color-stop(.25, transparent), 
+          color-stop(.5, transparent), 
+          color-stop(.5, rgba(255, 255, 255, .2)), 
+          color-stop(.75, rgba(255, 255, 255, .2)), 
+          color-stop(.75, transparent), to(transparent)
+       );
+    background-image: 
+      -moz-linear-gradient(
+        -45deg, 
+          rgba(255, 255, 255, .2) 25%, 
+          transparent 25%, 
+          transparent 50%, 
+          rgba(255, 255, 255, .2) 50%, 
+          rgba(255, 255, 255, .2) 75%, 
+          transparent 75%, 
+          transparent
+       );
+    z-index: 1;
+    -webkit-background-size: 50px 50px;
+    -moz-background-size: 50px 50px;
+    -webkit-animation: move 3s linear infinite;
+    overflow: hidden;
+
+    @include border-right-radius(8px);
+    @include border-left-radius(20px);
+  }
+    
+  .animate > span:after {
+    display: none;
+  }
+    
+  @-webkit-keyframes move {
+      0%   { background-position: 0 0;       }
+      100% { background-position: 50px 50px; }
+  }
+}
+
+.meter { 
+  @include meter(10px, yellow, 10);
+  display: inline-block; 
+  clear: none;
+}
