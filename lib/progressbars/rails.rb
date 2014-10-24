@@ -1,4 +1,3 @@
-puts "loading porgressbar-rails ★ ★"
 require "progressbars/rails/version"
 
 module Progressbars
