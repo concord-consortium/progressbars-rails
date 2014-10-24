@@ -19,7 +19,8 @@ Or install it yourself as:
 ## Usage
 
 In your views:
-  <%= progress_bar(0.2) %>
+
+    <%= progress_bar(0.2) %>
 
 ## Contributing
 
